@@ -1,38 +1,25 @@
 pipeline {
-
-  agent any
-
-  stages {
-
-    stage("App Versions"){  
-      steps {
-        script{
-          sh "npm -version"
-          sh "node -v"
+    agent any 
+    stages {
+         stage('Build') {
+            steps {
+                sh 'echo "Hello World"'
+                sh '''
+                    echo 'Construyendo la Aplicación' 
+                    echo "Multiline shell steps works too"
+                    ls -lah
+                '''
+            }
         }
-      }
-    }
-    stage("User ID"){  
-      steps {
-        script{
-          sh "id"
+        stage('Test') { 
+            steps {
+                echo 'Arranca el proceso de pruebas unitarias' 
+            }
         }
-      }
+        stage('Deploy') { 
+            steps {
+                echo 'Desplegando al área de desarrollo' 
+            }
+        }
     }
-  }
-  post {
-    always {          
-      deleteDir()
-      sh "echo 'always'"
-    }
-
-    success {
-      sh "echo 'success'"
-    }
-
-    failure {
-      sh "echo 'failure'"
-    }  
-  }
-} 
-
+}
