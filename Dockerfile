@@ -1,6 +1,13 @@
 FROM node:12
-WORKDIR /appnodejs
-ADD . /appnodejs
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+COPY package.json /app
+
 RUN npm install
-EXPOSE 3000
-CMD npm start
+
+COPY . /app
+
+RUN npm build --prod
